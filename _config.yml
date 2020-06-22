@@ -22,7 +22,7 @@ title: Samuel David Purle
 email: sdpurle@oakseynet.com
 description: >- # this means to ignore newlines until "baseurl:"
   I built this webpage using the Jekyll gem running on top of Ruby, for the purposes of showcasing Data Analysis, Machine Learning and Python Programming projects.
-baseurl: "PowerProject" # the subpath of your site, e.g. /blog
+baseurl: "Projects" # the subpath of your site, e.g. /blog
 url: "https://sampurle.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: SpacemanSam25
 github_username:  SamPurle
