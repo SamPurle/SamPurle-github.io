@@ -5,7 +5,7 @@ date:   2020-06-19 12:53:00 +0100
 categories: project upload
 ---
 
-### overview
+### Overview
 
 This project aims to make use of a Random Forest Classifier model to predict whether passengers survived the Titanic disaster, based on a variety of factors. Although somewhat morbid, this provides a good introduction to Machine Learning model construction, and key concepts such as Cleaning and Encoding.
 
@@ -28,6 +28,22 @@ The raw data is available in two separate '.csv' files: for Train and Test data.
 
 The first stage during data analysis is to "clean" the data, and ensure that it exists in a usable format. For this purpose I find it useful to separate the features used for prediction from the Ground Truth, and concatenate the two DataFrames. This allows cleaning operations to be performed on the two datasets simultaneously, and prevents issues arriving during encoding (when a categorical value appears in one dataset but not the other). It is important to maintain the ability to separate the two datasets after Cleaning and Feature Engineering to avoid cross-contamination. In this case it is possible to simply record the "PassengerId" index for each original DataFrame.
 
-Next, it is necessary to identify which columns contain sufficient information to be of use during model construction.
+Next, it is necessary to identify which columns contain sufficient information to be of use during model construction. The Null values in each column can be counted and divided by the length of the DataFrame, which will show the percentage of values in each column containing Nulls. For this model, any column containing 25% or more Null values was dropped from the dataset.
 
 {{site.data.Nulls}}
+
+The only column which satisfies this condition is the "Cabin" column, which contains 77% Nulls. This is far too high a percentage for Imputing to be appropriate or effective, and so this data cannot be included in the model. This leaves 3 columns remaining for which Imputing is necessary:
+
+- Age
+- Embarked
+- Fare
+
+### Extraction
+
+In some cases, it may be necessary to extract general information from more specific data within the dataset. In this example, I decided it was appropriate to extract a passenger's title from their Name. The exact Name of a passenger is unlikely to be of any use, whereas their Title can be used as a proxy for Socio-Economic Status, Age, Marital Status and Profession.
+
+This was a relatively simple task which necessitated the use of string operations. This was made easy due to the fact that the naming conventions were entirely uniform throughout the dataset, and would have been much more complex had the Passenger Names been recorded differently (potentially involving string indexing from a Dictionary of common titles across different countries and cultures).
+
+There were 4 common titles within the Dataset: "Mr" and "Master" for males and "Mrs" and "Miss" for females. There were many uncommon titles within the Dataset, such as "Jonkheer" and "The Countess" - all of which implied high Socio-Economic Status and none of which pertained to 10 passengers or more. As such, these titles were grouped together as "FancyMan" for males and "FancyLady" for females.
+
+### Visualisation
