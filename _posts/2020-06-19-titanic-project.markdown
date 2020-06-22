@@ -30,4 +30,6 @@ The first stage during data analysis is to "clean" the data, and ensure that it 
 
 Next, it is necessary to identify which columns contain sufficient information to be of use during model construction.
 
-{{site.data.Nulls}}
+{% for Column in site.data.Nulls %}
+  {{Nulls.Column}}, {{Nulls.Null Values (%)}} <br>
+{% endfor %}
