@@ -44,7 +44,7 @@ A sample of this data is shown below:
 
 ### Cleaning
 
-The first stage during data analysis is to "clean" the data, and ensure that it exists in a usable format. For this purpose I find it useful to separate the features used for prediction from the Ground Truth, and concatenate the two DataFrames. This allows cleaning operations to be performed on the two datasets simultaneously, and prevents issues arriving during encoding (when a categorical value appears in one dataset but not the other). It is important to maintain the ability to separate the two datasets after Cleaning and Feature Engineering to avoid cross-contamination. In this case it is possible to simply record the "PassengerId" index for each original DataFrame.
+The first stage during data analysis is to "clean" the data, and ensure that it exists in a usable format. For this purpose I find it useful to separate the features used for prediction from the Ground Truth, and concatenate the two DataFrames. This allows cleaning operations to be performed on the two datasets simultaneously, and prevents issues arriving during encoding when a categorical value appears in one dataset but not the other. It is important to maintain the ability to separate the two datasets after Cleaning and Feature Engineering to avoid cross-contamination. In this case it is possible to simply record the "PassengerId" index for each original DataFrame.
 
 Next, it is necessary to identify which columns contain sufficient information to be of use during model construction. The Null values in each column can be counted and divided by the length of the DataFrame, which will show the percentage of values in each column containing Nulls. For this model, any column containing 25% or more Null values was dropped from the dataset.
 
@@ -165,7 +165,7 @@ def Correlate(dfTrain):
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/CorrPlot.png">
 {: refdef}
 
-Although this plot does not show detailed information about the data, it can be used to highlight areas for investigate. The two features that appear to have the strongest influence on a passenger's Survival are Passenger Class and Sex (with Females having a higher likelihood of Survival than Males).
+Although this plot does not show detailed information about the data, it can be used to highlight areas for investigate. The two features that appear to have the strongest influence on a passenger's Survival are Passenger Class and Sex - with Females having a higher likelihood of Survival than Males.
 
 Plots can be generated on a feature-by-feature basis to investigate trends in more detail. It is possible to generate these visualisations iteratively as shown by the function below, although I have generated some plots manually to provide cleaner formatting and better legibility.
 
@@ -217,13 +217,19 @@ Single Adults and only Children had a relatively poor chance of survival, at app
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/PortPlot.png">
 {: refdef}
 
-Passengers embarking at Southampton and Queenstown had an approximately equal chance of surviving at around 35%. Those who boarded at Cherbourg had a much higher 55% chance of survival. Unfortunately it is not possible to determine whether those boarding at Cherbourg were generally accommodated within different decks of the ship with raised their chances of survival. It is possible, however, to determine whether passengers boarding at Cherbourg had a different Sex/Passenger Class distribution compared to those who boarded at the other ports.
+Passengers embarking at Southampton and Queenstown had an approximately equal chance of surviving at around 35%. Those who boarded at Cherbourg had a much higher 55% chance of survival. Unfortunately it is not possible to determine whether those boarding at Cherbourg were generally accommodated within different decks of the ship with raised their chances of survival. It is possible, however, to determine whether passengers boarding at Cherbourg had different Passenger Class and Sex distributions compared to those who boarded at the other ports.
 
 {:refdef: style="text-align: center;"}
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/CherPlot.png">
 {: refdef}
 
 As can be seen in the table above, passengers embarking at Cherbourg were much more likely to be travelling in 1st Class and much less likely to be travelling in 3rd Class.
+
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/CherSex.png">
+{: refdef}
+
+Variations in the Sex distribution between different ports is likely insignificant, and so this trend can likely be explained primarily as a function of Passenger Class.
 
 #### Title
 
