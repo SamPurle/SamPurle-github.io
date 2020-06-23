@@ -84,25 +84,25 @@ There were 4 common titles within the Dataset: "Mr" and "Master" for males and "
 #### Sex and Passenger Class
 
 {:refdef: style="text-align: center;"}
-<img src="{{site.url}}/{{site.baseurl}}/assets/SexPlot.png">
+<img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/SexPlot.png">
 {: refdef}
 
 #### Siblings and Spouses
 
 {:refdef: style="text-align: center;"}
-<img src="{{site.url}}/{{site.baseurl}}/assets/SibPlot.png">
+<img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/SibPlot.png">
 {: refdef}
 
 #### Port
 
 {:refdef: style="text-align: center;"}
-<img src="{{site.url}}/{{site.baseurl}}/assets/PortPlot.png">
+<img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/PortPlot.png">
 {: refdef}
 
 #### Title
 
 {:refdef: style="text-align: center;"}
-<img src="{{site.url}}/{{site.baseurl}}/assets/TitlePlot.png">
+<img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/TitlePlot.png">
 {: refdef}
 
 ### Imputing
