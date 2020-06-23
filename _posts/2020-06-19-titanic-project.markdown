@@ -168,7 +168,11 @@ def Visualise(df, CONT_COLS):
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/SexPlot.png">
 {: refdef}
 
-As expected, there was a vast difference in survival rates between Males and Females. Virtually all Women travelling in 1st and 2nd class survived the disaster, and even Women in 3rd class had an approximately even chance of surviving the event.  
+As expected, there was a vast difference in survival rates between Males and Females. Virtually all Women travelling in 1st and 2nd class survived the disaster, and even Women in 3rd class had an approximately even chance of surviving the event.
+
+The situation for Males was drastically different. Men travelling in First Class had a ~35% chance of survival, with this figure being closer to 10% for those travelling in 2nd and 3rd class.
+
+It is interesting that there was a large drop-off in survival chance between 2nd and 3rd class for Women, whereas this difference was most pronounced between 1st and 2nd class for Men.
 
 #### Siblings and Spouses
 
@@ -182,15 +186,37 @@ As expected, there was a vast difference in survival rates between Males and Fem
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/PortPlot.png">
 {: refdef}
 
+Passengers embarking at Southampton and Queenstown had an approximately equal chance of surviving at around 35%. Those who boarded at Cherbourg had a much higher 55% chance of survival. Unfortunately it is not possible to determine whether those boarding at Cherbourg were generally accommodated within different decks of the ship with raised their chances of survival. It is possible, however, to determine whether passengers boarding at Cherbourg had a different Sex/Passenger Class distribution compared to those who boarded at the other ports.
+
+<table>
+  {% for row in site.data.Embarked %}
+    {% if forloop.first %}
+    <tr>
+      {% for pair in row %}
+        <th>{{ pair[0] }}</th>
+      {% endfor %}
+    </tr>
+    {% endif %}
+
+    {% tablerow pair in row %}
+      {{ pair[1] }}
+    {% endtablerow %}
+  {% endfor %}
+</table>
+
+As can be seen in the table above, passengers embarking at Cherbourg were much more likely to be travelling in 1st Class - 52.2% of all passengers.
+
 #### Title
 
 {:refdef: style="text-align: center;"}
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/TitlePlot.png">
 {: refdef}
 
+Almost all Women with rare Titles survived the disaster - having a survival chance exceeding that of unmarried Women and Girls under the "Miss" title. This trend was not the same for Males: Men with rare Titles had a ~35% chance of survival whereas boys denoted by the "Master" Title had a 55% chance of surviving.
+
 ### Imputing
 
-Prior to encoding and modelling the data, it is necessary to specify how null values are to be handled. Although this can be done using the SimpleImputer object from the Scikit-Learn library, I found that better results were achieved through pandas' "fillna" function to calculate continuous values. The Embarkation column was imputed using the SimpleImputer object with the "most_frequent" strategy.
+Prior to encoding and modelling the data, it is necessary to specify how null values are to be handled. Although this can be done using the SimpleImputer object from the Scikit-Learn library, I found that better results were achieved through pandas' "fillna" method to calculate continuous values. The Embarkation column was imputed using the SimpleImputer object with the "most_frequent" strategy.
 
 {% highlight python %}
 
