@@ -47,7 +47,7 @@ This was a relatively simple task which necessitated the use of string operation
 {% highlight python %}
 
 """
-Title: A script to extract title from Passenger Name
+Title: A function to extract title from Passenger Name
 """
 
 def Title(df, FANCY_THRESH):
@@ -73,8 +73,6 @@ def Title(df, FANCY_THRESH):
 
     return df
 
-df = Title(df, FANCY_THRESH)
-
 {% endhighlight %}
 
 There were 4 common titles within the Dataset: "Mr" and "Master" for males and "Mrs" and "Miss" for females. There were many uncommon titles within the Dataset, such as "Jonkheer" and "The Countess" - all of which implied high Socio-Economic Status and none of which pertained to 10 passengers or more. As such, these titles were grouped together as "FancyMan" for males and "FancyLady" for females.
@@ -86,6 +84,11 @@ There were 4 common titles within the Dataset: "Mr" and "Master" for males and "
 Prior to encoding and modelling the data, it is necessary to specify how null values are to be handled. Although this can be done using the SimpleImputer object from the sklearn library, I found that better results were achieved through pandas' fillna function to calculate continuous values. The Embarkation column was imputted using the SimpleImputer object with the "most_frequent" strategy.
 
 {% highlight python %}
+
+"""
+CatImpute: A function to impute nulls
+"""
+
 def CatImpute (df, NULL_THRESH):
 
     NullPer = df.isnull().sum() / len(df)
@@ -98,4 +101,36 @@ def CatImpute (df, NULL_THRESH):
     df['Embarked'] = SimpleImputer(strategy = 'most_frequent').fit_transform(df[['Embarked']])
 
     return df
+
+{% endhighlight %}
+
+### Encoding
+
+After null values within the dataset have been handled, it is necessary to encode the categorical features such that they can be processed by Machine Learning algorithms.
+
+{% highlight python %}
+
+"""
+Encode: A function to encode categorical variables
+"""
+
+def Encode(df, CAT_NUM):
+
+    CatCols = list(df.columns.drop(df._get_numeric_data().columns))
+    CatCols.extend(CAT_NUM)
+
+    Enc = OneHotEncoder(sparse = False)
+
+    for x in CatCols:
+        EncCol = Enc.fit_transform(df[[x]])
+        EncNames = Enc.get_feature_names([x])
+        EncDf = pd.DataFrame(EncCol)
+        EncDf.columns = EncNames
+        EncDf.index = df.index
+
+        df = df.join(EncDf)    
+        df.drop(columns = x, inplace = True)
+
+    return df
+
 {% endhighlight %}
