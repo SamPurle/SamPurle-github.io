@@ -299,7 +299,11 @@ def DecTree(xTrain, yTrain):
 
 {% endhighlight %}
 
-Even a simple model such as this, with no additional optimisation achieved an accuracy of 70.8% on unseen test data.
+Even a simple model such as this, with no additional optimisation achieved an accuracy of 70.8% on unseen test data. The first 5 decision layers of this tree are visualised below:
+
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/DecTree_render.png">
+{: refdef}
 
 #### Random Forests
 
