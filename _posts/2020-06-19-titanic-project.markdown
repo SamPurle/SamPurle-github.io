@@ -223,7 +223,7 @@ Passengers embarking at Southampton and Queenstown had an approximately equal ch
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/CherPlot.png">
 {: refdef}
 
-As can be seen in the table above, passengers embarking at Cherbourg were much more likely to be travelling in 1st Class and much less likely to be travelling in 3rd Class.
+As can be seen in the plot above, passengers embarking at Cherbourg were much more likely to be travelling in 1st Class and much less likely to be travelling in 3rd Class.
 
 {:refdef: style="text-align: center;"}
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/CherSex.png">
@@ -279,7 +279,6 @@ It is often beneficial to extract additional meaning from existing data to pass 
 """
 Engineer: Initial, basic feature Engineering to extract additional meaning from other columns.
 """
-
 
 def Engineer(df):
 
