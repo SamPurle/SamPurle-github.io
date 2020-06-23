@@ -59,6 +59,6 @@ node [shape=box, style="filled", color="black"] ;
 296 -> 304 ;
 305 [label="(...)", fillcolor="#C0C0C0"] ;
 304 -> 305 ;
-370 [label="(...)", fillcolor="#C0C0C0"] ;
-304 -> 370 ;
+368 [label="(...)", fillcolor="#C0C0C0"] ;
+304 -> 368 ;
 }

@@ -180,6 +180,8 @@ It is interesting that there was a large drop-off in survival chance between 2nd
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/SibPlot.png">
 {: refdef}
 
+Single Adults and only Children had a relatively poor chance of survival, at approximately 35%. Passengers travelling with just 1 other sibling or a partner had a much greater chance or Survival at ~55%, which decreased with additional Siblings and Spouses.
+
 #### Port
 
 {:refdef: style="text-align: center;"}
@@ -188,23 +190,11 @@ It is interesting that there was a large drop-off in survival chance between 2nd
 
 Passengers embarking at Southampton and Queenstown had an approximately equal chance of surviving at around 35%. Those who boarded at Cherbourg had a much higher 55% chance of survival. Unfortunately it is not possible to determine whether those boarding at Cherbourg were generally accommodated within different decks of the ship with raised their chances of survival. It is possible, however, to determine whether passengers boarding at Cherbourg had a different Sex/Passenger Class distribution compared to those who boarded at the other ports.
 
-<table>
-  {% for row in site.data.Embarkation %}
-    {% if forloop.first %}
-    <tr>
-      {% for pair in row %}
-        <th>{{ pair[0] }}</th>
-      {% endfor %}
-    </tr>
-    {% endif %}
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/CherPlot.png">
+{: refdef}
 
-    {% tablerow pair in row %}
-      {{ pair[1] }}
-    {% endtablerow %}
-  {% endfor %}
-</table>
-
-As can be seen in the table above, passengers embarking at Cherbourg were much more likely to be travelling in 1st Class - 52.2% of all passengers.
+As can be seen in the table above, passengers embarking at Cherbourg were much more likely to be travelling in 1st Class and much less likely to be travelling in 3rd Class.
 
 #### Title
 
