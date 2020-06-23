@@ -47,3 +47,22 @@ This was a relatively simple task which necessitated the use of string operation
 There were 4 common titles within the Dataset: "Mr" and "Master" for males and "Mrs" and "Miss" for females. There were many uncommon titles within the Dataset, such as "Jonkheer" and "The Countess" - all of which implied high Socio-Economic Status and none of which pertained to 10 passengers or more. As such, these titles were grouped together as "FancyMan" for males and "FancyLady" for females.
 
 ### Visualisation
+
+### Imputing
+
+Prior to encoding and modelling the data, it is necessary to specify how null values are to be handled. Although this can be done using the SimpleImputer object from the sklearn library, I found that better results were achieved through pandas' fillna function to calculate continuous values. The Embarkation column was imputted using the SimpleImputer object with the "most_frequent" strategy.
+
+{% highlight python %}
+def CatImpute (df, NULL_THRESH):
+
+    NullPer = df.isnull().sum() / len(df)
+    NullPer.sort_values(ascending = False, inplace = True)        
+    NullCols = NullPer.loc[NullPer > NULL_THRESH].index      
+    df.drop(columns = NullCols, inplace = True)
+
+    df['Age'].fillna(df.groupby(['Sex','Pclass'])['Age'].transform('mean'), inplace = True)
+    df['Fare'].fillna(df.groupby(['Sex','Pclass'])['Fare'].transform('mean'), inplace = True)
+    df['Embarked'] = SimpleImputer(strategy = 'most_frequent').fit_transform(df[['Embarked']])
+
+    return df
+{% endhighlight %}
