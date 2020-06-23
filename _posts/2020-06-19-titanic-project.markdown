@@ -13,16 +13,16 @@ This project aims to make use of a Random Forest Classifier model to predict whe
 
 The raw data is available in two separate '.csv' files: for Train and Test data. The training data contains the "ground truth": whether the passenger survived the disaster or not, represented as a binary value. The other columns are:
 
-- Passenger Class: The class of ticket held by the passenger, which can be used as a proxy for Socio-Economic Status
-- Name: The passenger's Name
-- Sex: The passenger's biological Sex
-- Age: The Age of the passenger
-- Siblings and Spouses ("SibSp"): The number of Siblings and Spouses of the passenger that were also on-board
-- Parents and Children ("Parch"): The number of Parents and Children of the passenger that were also on-board
-- Ticket: The passenger's ticket number
-- Fare: The fare paid by the passenger to obtain their Ticket
-- Cabin: The passenger's Cabin Number
-- Embarked: The port of Embarkation
+- **Passenger Class:** The class of ticket held by the passenger, which can be used as a proxy for Socio-Economic Status
+- **Name:** The passenger's Name
+- **Sex:** The passenger's biological Sex
+- **Age:** The Age of the passenger
+- **Siblings and Spouses ("SibSp"):** The number of Siblings and Spouses of the passenger that were also on-board
+- **Parents and Children ("Parch"):** The number of Parents and Children of the passenger that were also on-board
+- **Ticket:** The passenger's ticket number
+- **Fare:** The fare paid by the passenger to obtain their Ticket
+- **Cabin:** The passenger's Cabin Number
+- **Embarked:** The port of Embarkation
 
 ### Cleaning
 
@@ -80,10 +80,30 @@ There were 4 common titles within the Dataset: "Mr" and "Master" for males and "
 ### Visualisation
 
 - Correlation
-- Sex, Pclass
-- SibSp
-- Port
-- Title
+
+#### Sex and Passenger Class
+
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/assets/SexPlot.png">
+{: refdef}
+
+#### Siblings and Spouses
+
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/assets/SibPlot.png">
+{: refdef}
+
+#### Port
+
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/assets/PortPlot.png">
+{: refdef}
+
+#### Title
+
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/assets/TitlePlot.png">
+{: refdef}
 
 ### Imputing
 
