@@ -256,11 +256,11 @@ I elected to use a Random Forest Classifier for this model, which is essentially
 
 There are a variety of hyper-parameters which can be specified during Random Forest generation. A hyper-paramater is a parameter or variable that defines how the model is trained and constructed: and therefore must be supplied by the user prior to model construction. These include:
 
-- n_estimators: The number of decision trees to be used in the Forest
-- criterion: The criterion to be used in determining logical splits within the dataset
-- max_depth: The maximum depth, or number of splits that can be made during classification
-- min_samples_leaf: The minimum number of samples that can be used to constitute a leaf node within a tree. This can be useful to prevent over-fitting
-- max_features: The maximum number of features to consider when splitting the data
+- **n_estimators:** The number of decision trees to be used in the Forest
+- **criterion:** The criterion to be used in determining logical splits within the dataset
+- **max_depth:** The maximum depth, or number of splits that can be made during classification
+- **min_samples_leaf:** The minimum number of samples that can be used to constitute a leaf node within a tree. This can be useful to prevent over-fitting
+- **max_features:** The maximum number of features to consider when splitting the data
 
 Random Forests are equally trivial to construct within the Scikit-Learn library:
 
@@ -322,10 +322,10 @@ def Optimise(xTrain, yTrain, n_iter, FOLDS):
 
 {% endhighlight %}
 
-- n_iter: Specifies the number of times this process is iterated through, which is equal to the number of different hyper-parameter combinations that are tested
-- n_jobs: Specifies the number of CPU threads allocated to this processed
-- cv: Specifies the number of folds to be used for cross-validation
-- random_state: Seeds the random number generator for parameter selection
+- **n_iter:** Specifies the number of times this process is iterated through, which is equal to the number of different hyper-parameter combinations that are tested
+- **n_jobs: Specifies the number of CPU threads allocated to this processed
+- **cv:** Specifies the number of folds to be used for cross-validation
+- **random_state:** Seeds the random number generator for parameter selection
 
 It is important to note that a "grid search" can also be performed for model optimisation. This involves supplying discrete lists of hyper-parameters to the model, which will fit and evaluate every combination thereof. This is very computationally intensive if it is desirable to investigate large ranges of hyper-parameters, although it is more likely to find local optima (as the optimiser will search every possible combination instead of random increments within a range).
 
