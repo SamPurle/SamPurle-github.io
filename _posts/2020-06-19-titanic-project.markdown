@@ -24,6 +24,24 @@ The raw data is available in two separate '.csv' files: for Train and Test data.
 - **Cabin:** The passenger's Cabin Number
 - **Embarked:** The port of Embarkation
 
+A sample of this data is shown below:
+
+<table>
+  {% for row in site.data.dfTrainHead %}
+    {% if forloop.first %}
+    <tr>
+      {% for pair in row %}
+        <th>{{ pair[0] }}</th>
+      {% endfor %}
+    </tr>
+    {% endif %}
+
+    {% tablerow pair in row %}
+      {{ pair[1] }}
+    {% endtablerow %}
+  {% endfor %}
+</table>
+
 ### Cleaning
 
 The first stage during data analysis is to "clean" the data, and ensure that it exists in a usable format. For this purpose I find it useful to separate the features used for prediction from the Ground Truth, and concatenate the two DataFrames. This allows cleaning operations to be performed on the two datasets simultaneously, and prevents issues arriving during encoding (when a categorical value appears in one dataset but not the other). It is important to maintain the ability to separate the two datasets after Cleaning and Feature Engineering to avoid cross-contamination. In this case it is possible to simply record the "PassengerId" index for each original DataFrame.
@@ -31,7 +49,6 @@ The first stage during data analysis is to "clean" the data, and ensure that it 
 Next, it is necessary to identify which columns contain sufficient information to be of use during model construction. The Null values in each column can be counted and divided by the length of the DataFrame, which will show the percentage of values in each column containing Nulls. For this model, any column containing 25% or more Null values was dropped from the dataset.
 
 <table>
-{:refdef: style="text-align: center;"}
   {% for row in site.data.Nulls %}
     {% if forloop.first %}
     <tr>
@@ -45,7 +62,6 @@ Next, it is necessary to identify which columns contain sufficient information t
       {{ pair[1] }}
     {% endtablerow %}
   {% endfor %}
-{: refdef}
 </table>
 
 The only column which satisfies this condition is the "Cabin" column, which contains 77% Nulls. This is far too high a percentage for Imputing to be appropriate or effective, and so this data cannot be included in the model. This leaves 3 columns remaining for which Imputing is necessary:

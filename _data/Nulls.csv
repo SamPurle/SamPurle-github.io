@@ -1,8 +1,8 @@
 Column,Null Values (%)
-Cabin,77.46371275783041
-Age,20.091673032849503
-Embarked,0.15278838808250572
-Fare,0.07639419404125286
+Cabin,77.46
+Age,20.09
+Embarked,0.15
+Fare,0.08
 Ticket,0.0
 Parch,0.0
 SibSp,0.0
