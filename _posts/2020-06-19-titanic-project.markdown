@@ -30,9 +30,8 @@ The first stage during data analysis is to "clean" the data, and ensure that it 
 
 Next, it is necessary to identify which columns contain sufficient information to be of use during model construction. The Null values in each column can be counted and divided by the length of the DataFrame, which will show the percentage of values in each column containing Nulls. For this model, any column containing 25% or more Null values was dropped from the dataset.
 
-{{site.data.Nulls}}
-
 <table>
+{:refdef: style="text-align: center;"}
   {% for row in site.data.Nulls %}
     {% if forloop.first %}
     <tr>
@@ -46,6 +45,7 @@ Next, it is necessary to identify which columns contain sufficient information t
       {{ pair[1] }}
     {% endtablerow %}
   {% endfor %}
+{: refdef}
 </table>
 
 The only column which satisfies this condition is the "Cabin" column, which contains 77% Nulls. This is far too high a percentage for Imputing to be appropriate or effective, and so this data cannot be included in the model. This leaves 3 columns remaining for which Imputing is necessary:
