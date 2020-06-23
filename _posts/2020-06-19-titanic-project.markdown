@@ -98,6 +98,7 @@ CatImpute: A function to impute nulls
 def CatImpute (df, NULL_THRESH):
 
     # Drop high-null columns
+
     NullPer = df.isnull().sum() / len(df)
     NullPer.sort_values(ascending = False, inplace = True)        
     NullCols = NullPer.loc[NullPer > NULL_THRESH].index      
@@ -193,7 +194,7 @@ def DecTree(xTrain, yTrain):
 
     return DecTree
 
-  {% endhighlight %}
+{% endhighlight %}
 
 Even a simple model such as this, with no additional optimisation achieved an accuracy of 70.8% on unseen test data.
 
@@ -208,6 +209,23 @@ There are a variety of hyper-parameters which can be specified during Random For
 - max_depth: The maximum depth, or number of splits that can be made during classification
 - min_samples_leaf: The minimum number of samples that can be used to constitute a leaf node within a tree. This can be useful to prevent over-fitting
 - max_features: The maximum number of features to consider when splitting the data
+
+Random Forests are equally trivial to construct within the Scikit-Learn library:
+
+{% highlight python %}
+
+"""
+InitialModel: A function to build and fit an initial classification model
+"""
+
+def InitialModel(xTrain, yTrain):
+
+    Model = RandomForestClassifier(n_estimators = 100, random_state = 42, n_jobs = 3)
+    Model.fit(xTrain,yTrain)
+
+    return Model
+
+{% endhighlight %}
 
 #### Optimisation
 
@@ -250,13 +268,13 @@ def Optimise(xTrain, yTrain, n_iter, FOLDS):
 
     return BestEstimator
 
-  {% endhighlight %}
+{% endhighlight %}
 
-  - n_iter: Specifies the number of times this process is iterated through, which is equal to the number of different hyper-parameter combinations that are tested
-  - n_jobs: Specifies the number of CPU threads allocated to this processed
-  - cv: Specifies the number of folds to be used for cross-validation
-  - random_state: Seeds the random number generator for parameter selection
+- n_iter: Specifies the number of times this process is iterated through, which is equal to the number of different hyper-parameter combinations that are tested
+- n_jobs: Specifies the number of CPU threads allocated to this processed
+- cv: Specifies the number of folds to be used for cross-validation
+- random_state: Seeds the random number generator for parameter selection
 
-  It is important to note that a "grid search" can also be performed for model optimisation. This involves supplying discrete lists of hyper-parameters to the model, which will fit and evaluate every combination thereof. This is very computationally intensive if it is desirable to investigate large ranges of hyper-parameters, although it is more likely to find local optima (as the optimiser will search every possible combination instead of random increments within a range).
+It is important to note that a "grid search" can also be performed for model optimisation. This involves supplying discrete lists of hyper-parameters to the model, which will fit and evaluate every combination thereof. This is very computationally intensive if it is desirable to investigate large ranges of hyper-parameters, although it is more likely to find local optima (as the optimiser will search every possible combination instead of random increments within a range).
 
 ### Final Thoughts
