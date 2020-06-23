@@ -113,6 +113,30 @@ There were 4 common titles within the Dataset: "Mr" and "Master" for males and "
 
 - Correlation
 
+Is is often useful to visualise data for the purposes of Exploratory Data Analysis, and to identify general trends which could be further investigated and modelled. It is possible to generate these visualisations iteratively as shown by the function below, although I have generated some plots manually to provide cleaner formatting and better legibility.
+
+{% highlight python %}
+
+"""
+Visualise: A function to visualise the data to observe trends
+"""
+
+def Visualise(df, CONT_COLS):
+
+    Cols = list(df.columns)
+    DisCols = [x for x in Cols if x not in CONT_COLS]
+
+    for xCol in DisCols:
+
+        sns.barplot(x = df[xCol], y = yTrain)
+        plt.title('Plot showing how {} impacted Survival'.format(xCol))
+        plt.savefig('{}/{}_Plot.png'.format(ASSET_FILEPATH, xCol))
+        plt.show()              
+
+    return DisCols
+
+{% endhighlight %}
+
 #### Sex and Passenger Class
 
 {:refdef: style="text-align: center;"}
