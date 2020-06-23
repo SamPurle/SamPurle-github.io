@@ -159,7 +159,36 @@ df = Engineer(df)
 
 {% endhighlight %}
 
+Another feature that I considered extracting was the number of passengers in each Cabin. However, as discussed above this feature too incomplete to be able to extract meeaningful information from it.
+
 ### Modelling
+
+#### Decision Trees
+
+Decision Trees are generally considered to be the simplest Machine Learning algorithm. They function by applying a Boolean test to the features within a test to cause a "split" in the data, which results in informational gain and a reduction in impurity. These splits continue to be made based upon Boolean tests on all features within a dataset, until a "leaf node" is reached.
+
+During predictions these Boolean tests are applied to each sample within the test data, until a leaf node is reached. The modal target value of training samples within this node will determine the prediction that is made for the test sample.
+
+These trees are very easy to construct with the Scikit-Learn library:
+
+{% highlight python %}
+
+"""
+DecTree: A function to construct a simple Decision Tree Classifier
+"""
+
+def DecTree(xTrain, yTrain):
+
+    DecTree = DecisionTreeClassifier()
+    DecTree.fit(xTrain, yTrain)
+
+    return DecTree
+
+  {% endhighlight %}
+
+Even a simple model such as this, with no additional optimisation achieved an accuracy of 70.8% on unseen test data.
+
+#### Random Forests
 
 I elected to use a Random Forest Classifier for this model, which is essentially a semi-randomised collection of Decision Trees which each "vote" on the outcome based on the supplied features. These votes are then tallied, and the most common output is used as the model's prediction.
 
@@ -170,6 +199,8 @@ There are a variety of hyper-parameters which can be specified during Random For
 - max_depth: The maximum depth, or number of splits that can be made during classification
 - min_samples_leaf: The minimum number of samples that can be used to constitute a leaf node within a tree. This can be useful to prevent over-fitting
 - max_features: The maximum number of features to consider when splitting the data
+
+#### Optimisation
 
 Optimising these parameters can be used to substantially increase model performance. A common technique used for optimisation is the use of cross-validation: where the training data is split into a number of different "folds":
 
