@@ -44,6 +44,39 @@ In some cases, it may be necessary to extract general information from more spec
 
 This was a relatively simple task which necessitated the use of string operations. This was made easy due to the fact that the naming conventions were entirely uniform throughout the dataset, and would have been much more complex had the Passenger Names been recorded differently (potentially involving string indexing from a Dictionary of common titles across different countries and cultures).
 
+{% highlight python %}
+
+"""
+Title: A script to extract title from Passenger Name
+"""
+
+def Title(df, FANCY_THRESH):
+
+    # Extract title from name
+
+    df['Title'] = df['Name'].str.split(', ', expand = True)[1].str.split('.', expand = True)[0]
+    df.drop(columns = 'Name', inplace = True)
+
+    # Group rare titles into one category
+
+    TitleCounts = df.groupby(['Sex', 'Title']).Title.count()
+
+    FancyTitles = TitleCounts.loc[TitleCounts.values < 10]
+
+    MaleFancy = FancyTitles.loc['male']
+    MaleIndexReplace = df.join(MaleFancy, on = 'Title', how = 'inner', rsuffix = 'F').index
+    df.loc[MaleIndexReplace, 'Title'] = 'FancyMan'
+
+    FemaleFancy = FancyTitles.loc['female']
+    FemaleIndexReplace = df.join(FemaleFancy, on = 'Title', how = 'inner', rsuffix = 'F').index
+    df.loc[FemaleIndexReplace, 'Title'] = 'FancyLady'
+
+    return df
+
+df = Title(df, FANCY_THRESH)
+
+{% endhighlight %}
+
 There were 4 common titles within the Dataset: "Mr" and "Master" for males and "Mrs" and "Miss" for females. There were many uncommon titles within the Dataset, such as "Jonkheer" and "The Countess" - all of which implied high Socio-Economic Status and none of which pertained to 10 passengers or more. As such, these titles were grouped together as "FancyMan" for males and "FancyLady" for females.
 
 ### Visualisation
