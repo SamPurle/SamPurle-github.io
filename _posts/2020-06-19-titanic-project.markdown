@@ -70,6 +70,35 @@ The only column which satisfies this condition is the "Cabin" column, which cont
 - Embarked
 - Fare
 
+### Imputing
+
+Prior to encoding and modelling the data, it is necessary to specify how null values are to be handled. Although this can be done using the SimpleImputer object from the Scikit-Learn library, I found that better results were achieved through pandas' "fillna" method to calculate continuous values. The Embarkation column was imputed using the SimpleImputer object with the "most_frequent" strategy.
+
+{% highlight python %}
+
+"""
+CatImpute: A function to impute nulls
+"""
+
+def CatImpute (df, NULL_THRESH):
+
+    # Drop high-null columns
+
+    NullPer = df.isnull().sum() / len(df)
+    NullPer.sort_values(ascending = False, inplace = True)        
+    NullCols = NullPer.loc[NullPer > NULL_THRESH].index      
+    df.drop(columns = NullCols, inplace = True)
+
+    # Impute low-null columns
+
+    df['Age'].fillna(df.groupby(['Sex','Pclass'])['Age'].transform('mean'), inplace = True)
+    df['Fare'].fillna(df.groupby(['Sex','Pclass'])['Fare'].transform('mean'), inplace = True)
+    df['Embarked'] = SimpleImputer(strategy = 'most_frequent').fit_transform(df[['Embarked']])
+
+    return df
+
+{% endhighlight %}
+
 ### Extraction
 
 In some cases, it may be necessary to extract general information from more specific data within the dataset. In this example, I decided it was appropriate to extract a passenger's title from their Name. The exact Name of a passenger is unlikely to be of any use, whereas their Title can be used as a proxy for Socio-Economic Status, Age, Marital Status and Profession.
@@ -203,35 +232,6 @@ As can be seen in the table above, passengers embarking at Cherbourg were much m
 {: refdef}
 
 Almost all Women with rare Titles survived the disaster - having a survival chance exceeding that of unmarried Women and Girls under the "Miss" title. This trend was not the same for Males: Men with rare Titles had a ~35% chance of survival whereas boys denoted by the "Master" Title had a 55% chance of surviving.
-
-### Imputing
-
-Prior to encoding and modelling the data, it is necessary to specify how null values are to be handled. Although this can be done using the SimpleImputer object from the Scikit-Learn library, I found that better results were achieved through pandas' "fillna" method to calculate continuous values. The Embarkation column was imputed using the SimpleImputer object with the "most_frequent" strategy.
-
-{% highlight python %}
-
-"""
-CatImpute: A function to impute nulls
-"""
-
-def CatImpute (df, NULL_THRESH):
-
-    # Drop high-null columns
-
-    NullPer = df.isnull().sum() / len(df)
-    NullPer.sort_values(ascending = False, inplace = True)        
-    NullCols = NullPer.loc[NullPer > NULL_THRESH].index      
-    df.drop(columns = NullCols, inplace = True)
-
-    # Impute low-null columns
-
-    df['Age'].fillna(df.groupby(['Sex','Pclass'])['Age'].transform('mean'), inplace = True)
-    df['Fare'].fillna(df.groupby(['Sex','Pclass'])['Fare'].transform('mean'), inplace = True)
-    df['Embarked'] = SimpleImputer(strategy = 'most_frequent').fit_transform(df[['Embarked']])
-
-    return df
-
-{% endhighlight %}
 
 ### Encoding
 
