@@ -113,7 +113,7 @@ There were 4 common titles within the Dataset: "Mr" and "Master" for males and "
 
 It is often useful to visualise data for the purposes of Exploratory Data Analysis, and to identify general trends which could be further investigated and modelled. The Seaborn library has a very useful "heatmap" function which can help to identify correlations within the dataset as a whole.
 
-{% highlight python}
+{% highlight python %}
 
 """
 Correlate: A function to visualise correlations within the dataset
