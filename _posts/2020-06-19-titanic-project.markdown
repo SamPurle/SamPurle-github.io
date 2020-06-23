@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Titanic - Random Forest Classification to predict survival"
+title:  "Titanic - A Machine Learning Classification model to predict survival"
 date:   2020-06-19 12:53:00 +0100
 categories: project upload
 ---
@@ -106,7 +106,7 @@ def CatImpute (df, NULL_THRESH):
 
 ### Encoding
 
-After null values within the dataset have been handled, it is necessary to encode the categorical features such that they can be processed by Machine Learning algorithms.
+After null values within the dataset have been handled, it is necessary to encode the categorical features such that they can be processed by Machine Learning algorithms. In the cases of ordinal data, this can be done in place as the different categories are in a defined order. Passenger Class is an example of ordinal data: as this feature can only take on three different values which correlate to the passenger's Socio-Economic Status. Sex is generally not considered to be an ordinal variable, but in this example could be encoded in-place as Females had a substantially higher chance of survival.
 
 {% highlight python %}
 
@@ -116,7 +116,7 @@ Encode: A function to encode categorical variables
 
 def Encode(df, CAT_NUM):
 
-    CatCols = list(df.columns.drop(df._get_numeric_data().columns))
+    CatCols = list(df.columns.drop(df.get_numeric_data().columns))
     CatCols.extend(CAT_NUM)
 
     Enc = OneHotEncoder(sparse = False)
@@ -134,3 +134,85 @@ def Encode(df, CAT_NUM):
     return df
 
 {% endhighlight %}
+
+### Feature Engineering
+
+It is often beneficial to extract additional meaning from existing data to pass to the Machine Learning model. This was somewhat difficult for this dataset, as the number of measured features is very low. Two variables that can be inferred from others include the passenger's Family Size, and whether they were Alone or not.
+
+{% highlight python %}
+
+"""
+Engineer: Initial, basic feature Engineering to extract additional meaning from other columns.
+"""
+
+
+def Engineer(df):
+
+    df['FamSize'] = df['Parch'] + df['SibSp']
+
+    df['Alone'] = 0
+    df.loc[df['FamSize'] == 0, 'Alone'] = 1
+
+    return df
+
+df = Engineer(df)
+
+{% endhighlight %}
+
+### Modelling
+
+I elected to use a Random Forest Classifier for this model, which is essentially a semi-randomised collection of Decision Trees which each "vote" on the outcome based on the supplied features. These votes are then tallied, and the most common output is used as the model's prediction.
+
+There are a variety of hyper-parameters which can be specified during Random Forest generation. A hyper-paramater is a parameter or variable that defines how the model is trained and constructed: and therefore must be supplied by the user prior to model construction. These include:
+
+- n_estimators: The number of decision trees to be used in the Forest
+- criterion: The criterion to be used in determining logical splits within the dataset
+- max_depth: The maximum depth, or number of splits that can be made during classification
+- min_samples_leaf: The minimum number of samples that can be used to constitute a leaf node within a tree. This can be useful to prevent over-fitting
+- max_features: The maximum number of features to consider when splitting the data
+
+Optimising these parameters can be used to substantially increase model performance. A common technique used for optimisation is the use of cross-validation: where the training data is split into a number of different "folds":
+
+- The training data is randomly split into k number of folds
+- Each fold is used as training data k-1 times
+- Each fold is used as validation data 1 time, and is used to cross-validate the modelling
+
+This allows for very efficient use of labelled training data, as scoring metrics can be calculated within the training data and used to evaluate the hyper-parameter selection. A particularly useful tool for hyper-parameter optimisation is the "RandomizedSearchCV" function within sklearn. This function takes in an estimator model and a specified range of hyper-parameters, and scores random combinations of these hyper-parameters to determine which give the best model performance:
+
+{% highlight python %}
+
+"""
+Optimise: A function to optimise the model using a Random Grid Search
+"""
+
+def Optimise(xTrain, yTrain, n_iter, FOLDS):
+
+    # Specify base model
+
+    rfc = RandomForestClassifier(random_state = 42)
+    rfc.fit(xTrain, yTrain)
+
+    # Specify parameters to vary
+
+    EstimatorOptions = range(1,501)
+    DepthOptions = range(1,51)
+    FeatureOptions = range(1,25)
+    ParamGrid = dict(n_estimators = EstimatorOptions, max_depth = DepthOptions, max_features = FeatureOptions)
+
+    # Optimise
+
+    CVGrid = RandomizedSearchCV(rfc, ParamGrid, n_iter = n_iter, n_jobs = 3,
+                       scoring = 'accuracy', cv = FOLDS, random_state = 42,
+                       return_train_score = True)
+    CVGrid.fit(xTrain,yTrain)
+
+    BestEstimator = CVGrid.best_estimator_
+
+    return BestEstimator
+
+  {% endhighlight %}
+
+  - n_iter: Specifies the number of times this process is iterated through, which is equal to the number of different hyper-parameter combinattions that are tested
+  - n_jobs: Specifies the number of CPU threads allocated to this processed
+  - cv: Specifies the number of folds to be used for cross-validation
+  - random_state: Seeds the random number generator for parameter selection
