@@ -189,7 +189,7 @@ It is interesting that there was a large drop-off in survival chance between 2nd
 Passengers embarking at Southampton and Queenstown had an approximately equal chance of surviving at around 35%. Those who boarded at Cherbourg had a much higher 55% chance of survival. Unfortunately it is not possible to determine whether those boarding at Cherbourg were generally accommodated within different decks of the ship with raised their chances of survival. It is possible, however, to determine whether passengers boarding at Cherbourg had a different Sex/Passenger Class distribution compared to those who boarded at the other ports.
 
 <table>
-  {% for row in site.data.Embarked %}
+  {% for row in site.data.Embarkation %}
     {% if forloop.first %}
     <tr>
       {% for pair in row %}
