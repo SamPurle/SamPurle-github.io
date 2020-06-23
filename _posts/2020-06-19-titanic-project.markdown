@@ -79,9 +79,15 @@ There were 4 common titles within the Dataset: "Mr" and "Master" for males and "
 
 ### Visualisation
 
+- Correlation
+- Sex, Pclass
+- SibSp
+- Port
+- Title
+
 ### Imputing
 
-Prior to encoding and modelling the data, it is necessary to specify how null values are to be handled. Although this can be done using the SimpleImputer object from the sklearn library, I found that better results were achieved through pandas' fillna function to calculate continuous values. The Embarkation column was imputted using the SimpleImputer object with the "most_frequent" strategy.
+Prior to encoding and modelling the data, it is necessary to specify how null values are to be handled. Although this can be done using the SimpleImputer object from the Scikit-Learn library, I found that better results were achieved through pandas' "fillna" function to calculate continuous values. The Embarkation column was imputed using the SimpleImputer object with the "most_frequent" strategy.
 
 {% highlight python %}
 
@@ -91,10 +97,13 @@ CatImpute: A function to impute nulls
 
 def CatImpute (df, NULL_THRESH):
 
+    # Drop high-null columns
     NullPer = df.isnull().sum() / len(df)
     NullPer.sort_values(ascending = False, inplace = True)        
     NullCols = NullPer.loc[NullPer > NULL_THRESH].index      
     df.drop(columns = NullCols, inplace = True)
+
+    # Impute low-null columns
 
     df['Age'].fillna(df.groupby(['Sex','Pclass'])['Age'].transform('mean'), inplace = True)
     df['Fare'].fillna(df.groupby(['Sex','Pclass'])['Fare'].transform('mean'), inplace = True)
@@ -206,7 +215,7 @@ Optimising these parameters can be used to substantially increase model performa
 
 - The training data is randomly split into k number of folds
 - Each fold is used as training data k-1 times
-- Each fold is used as validation data 1 time, and is used to cross-validate the modelling
+- Each fold is used as validation data 1 time, and is used to cross-validate the model
 
 This allows for very efficient use of labelled training data, as scoring metrics can be calculated within the training data and used to evaluate the hyper-parameter selection. A particularly useful tool for hyper-parameter optimisation is the "RandomizedSearchCV" function within sklearn. This function takes in an estimator model and a specified range of hyper-parameters, and scores random combinations of these hyper-parameters to determine which give the best model performance:
 
@@ -243,7 +252,11 @@ def Optimise(xTrain, yTrain, n_iter, FOLDS):
 
   {% endhighlight %}
 
-  - n_iter: Specifies the number of times this process is iterated through, which is equal to the number of different hyper-parameter combinattions that are tested
+  - n_iter: Specifies the number of times this process is iterated through, which is equal to the number of different hyper-parameter combinations that are tested
   - n_jobs: Specifies the number of CPU threads allocated to this processed
   - cv: Specifies the number of folds to be used for cross-validation
   - random_state: Seeds the random number generator for parameter selection
+
+  It is important to note that a "grid search" can also be performed for model optimisation. This involves supplying discrete lists of hyper-parameters to the model, which will fit and evaluate every combination thereof. This is very computationally intensive if it is desirable to investigate large ranges of hyper-parameters, although it is more likely to find local optima (as the optimiser will search every possible combination instead of random increments within a range).
+
+### Final Thoughts
