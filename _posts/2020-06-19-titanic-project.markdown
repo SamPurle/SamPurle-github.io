@@ -111,9 +111,32 @@ There were 4 common titles within the Dataset: "Mr" and "Master" for males and "
 
 ### Visualisation
 
-- Correlation
+It is often useful to visualise data for the purposes of Exploratory Data Analysis, and to identify general trends which could be further investigated and modelled. The Seaborn library has a very useful "heatmap" function which can help to identify correlations within the dataset as a whole.
 
-Is is often useful to visualise data for the purposes of Exploratory Data Analysis, and to identify general trends which could be further investigated and modelled. It is possible to generate these visualisations iteratively as shown by the function below, although I have generated some plots manually to provide cleaner formatting and better legibility.
+{% highlight python}
+
+"""
+Correlate: A function to visualise correlations within the dataset
+"""
+
+def Correlate(dfTrain):
+
+    dfTrain['Sex'].replace({'male' : 0, 'female' : 1}, inplace = True)
+    Corr = dfTrain.corr()    
+    CorrPlot = sns.heatmap(Corr, cmap = 'RdYlGn', square = True, linewidth = 0.5, center = 0)
+    plt.title('Plot showing correlations within the data')
+
+    plt.savefig('{}/CorrPlot.png'.format(ASSET_FILEPATH))
+
+    return
+
+{% endhighlight %}
+
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/CorrPlot.png">
+{: refdef}
+
+It is possible to generate these visualisations iteratively as shown by the function below, although I have generated some plots manually to provide cleaner formatting and better legibility.
 
 {% highlight python %}
 
@@ -245,7 +268,7 @@ df = Engineer(df)
 
 {% endhighlight %}
 
-Another feature that I considered extracting was the number of passengers in each Cabin. However, as discussed above this feature too incomplete to be able to extract meeaningful information from it.
+Another feature that I considered extracting was the number of passengers in each Cabin. However, as discussed above this feature too incomplete to be able to extract meaningful information from it.
 
 ### Modelling
 
@@ -347,10 +370,12 @@ def Optimise(xTrain, yTrain, n_iter, FOLDS):
 {% endhighlight %}
 
 - **n_iter:** Specifies the number of times this process is iterated through, which is equal to the number of different hyper-parameter combinations that are tested
-- **n_jobs: Specifies the number of CPU threads allocated to this processed
+- **n_jobs:** Specifies the number of CPU threads allocated to this processed
 - **cv:** Specifies the number of folds to be used for cross-validation
 - **random_state:** Seeds the random number generator for parameter selection
 
 It is important to note that a "grid search" can also be performed for model optimisation. This involves supplying discrete lists of hyper-parameters to the model, which will fit and evaluate every combination thereof. This is very computationally intensive if it is desirable to investigate large ranges of hyper-parameters, although it is more likely to find local optima (as the optimiser will search every possible combination instead of random increments within a range).
+
+After optimisation, I found that the best Random Forest Classifier model gave an accuracy of 79.4% on unseen test data.
 
 ### Final Thoughts
