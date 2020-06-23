@@ -136,7 +136,9 @@ def Correlate(dfTrain):
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/CorrPlot.png">
 {: refdef}
 
-It is possible to generate these visualisations iteratively as shown by the function below, although I have generated some plots manually to provide cleaner formatting and better legibility.
+Although this plot does not show detailed information about the data, it can be used to highlight areas for investigate. The two features that appear to have the strongest influence on a passenger's Survival are Passenger Class and Sex (with Females having a higher likelihood of Survival than Males).
+
+Plots can be generated on a feature-by-feature basis to investigate trends in more detail. It is possible to generate these visualisations iteratively as shown by the function below, although I have generated some plots manually to provide cleaner formatting and better legibility.
 
 {% highlight python %}
 
@@ -165,6 +167,8 @@ def Visualise(df, CONT_COLS):
 {:refdef: style="text-align: center;"}
 <img src="{{site.url}}/{{site.baseurl}}/assets/Titanic/SexPlot.png">
 {: refdef}
+
+As expected, there was a vast difference in survival rates between Males and Females. Virtually all Women travelling in 1st and 2nd class survived the disaster, and even Women in 3rd class had an approximately even chance of surviving the event.  
 
 #### Siblings and Spouses
 
@@ -376,6 +380,10 @@ def Optimise(xTrain, yTrain, n_iter, FOLDS):
 
 It is important to note that a "grid search" can also be performed for model optimisation. This involves supplying discrete lists of hyper-parameters to the model, which will fit and evaluate every combination thereof. This is very computationally intensive if it is desirable to investigate large ranges of hyper-parameters, although it is more likely to find local optima (as the optimiser will search every possible combination instead of random increments within a range).
 
-After optimisation, I found that the best Random Forest Classifier model gave an accuracy of 79.4% on unseen test data.
+After optimisation, the best Random Forest Classifier model gave an accuracy of 79.4% on unseen test data.
 
 ### Final Thoughts
+
+I think this project provides an excellent starting point for those interested in Machine Learning. It encourages you to become familiar with core concepts, and allows you to gain an understanding of how relatively simple Machine Learning models function. Additionally, it highlights the importance of becoming familiar with the underlying dataset and identifying the merits of modelling/further research through visualisation.
+
+Additionally, this project demonstrates the importance of the quantity of samples and features. After researching a wide variety of notebooks on [Kaggle](https://www.kaggle.com/c/titanic/notebooks), I could not find a Machine Learning model that exceeded 83% test accuracy.
