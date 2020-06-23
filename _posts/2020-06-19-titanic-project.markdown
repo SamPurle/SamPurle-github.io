@@ -386,4 +386,4 @@ After optimisation, the best Random Forest Classifier model gave an accuracy of 
 
 I think this project provides an excellent starting point for those interested in Machine Learning. It encourages you to become familiar with core concepts, and allows you to gain an understanding of how relatively simple Machine Learning models function. Additionally, it highlights the importance of becoming familiar with the underlying dataset and identifying the merits of modelling/further research through visualisation.
 
-Additionally, this project demonstrates the importance of the quantity of samples and features. After researching a wide variety of notebooks on [Kaggle](https://www.kaggle.com/c/titanic/notebooks), I could not find a Machine Learning model that exceeded 83% test accuracy.
+Furthermore, this project demonstrates the importance of the quantity of samples and features. After researching a wide variety of notebooks on [Kaggle](https://www.kaggle.com/c/titanic/notebooks), I could not find a Machine Learning model that exceeded 83% test accuracy.
