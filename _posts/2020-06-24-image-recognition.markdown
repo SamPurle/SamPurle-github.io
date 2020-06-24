@@ -208,3 +208,9 @@ I experimented with optimising the existing model to see if this score could be 
 - Increasing the dimensionality of the output of the Dense layer, to increase the quantity of information used to generate predictions at the expense of training time
 
 Despite adjusting these parameters quite substantially, I was unable to produce a model that achieved more than 91.6% test accuracy (even when training accuracy was in excess of 99.5%). As far as I can tell, this indicates that the level of information at the input layer is insufficient to reliably generate a highly accurate model.
+
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/assets/ImageRec/Fashion3Demo.png">
+{: refdef}
+
+As an example of the difficulties faced when working with the Fashion dataset the image above was incorrectly classified as a Shirt, when its label indicates that it is in fact a Pullover.
