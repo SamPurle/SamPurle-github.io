@@ -190,3 +190,21 @@ These predictions achieved an accuracy of 98.5% on unseen test data. A sample fr
 {:refdef: style="text-align: center;"}
 <img src="{{site.url}}/{{site.baseurl}}/assets/ImageRec/Index42Demo.png">
 {: refdef}
+
+### Adapting the model
+
+An MNIST Fashion dataset is also available, which contains 60,000 labelled low-resolution images of clothing items from the retailer Zalando's catalogue. This is paired with 10,000 labelled test images. Because these images are in the same format as Digit dataset, it is trivial to fit the model to this new data.
+
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/assets/ImageRec/Index50Demo.png">
+{: refdef}
+
+The key different between these images and hand-written digits is that Arabic Numerals are specifically designed to be easily distinguishable. The images of clothing, however, are sufficiently low-resolution that they are difficult to distinguish even for humans. Nonetheless, without any adaptation the existing model achieved an accuracy of 90.6% on unseen test data.
+
+I experimented with optimising the existing model to see if this score could be improved:
+
+- Increasing the kernel size and filter count of the convolution layers to capture greater complexity of features within the images
+- Increasing the quantity of convolution layers to allow the model to capture arrangements of different features more easily
+- Increasing the dimensionality of the output of the Dense layer, to increase the quantity of information used to generate predictions at the expense of training time
+
+Despite adjusting these parameters quite substantially, I was unable to produce a model that achieved more than 91.6% test accuracy (even when training accuracy was in excess of 99.5%). As far as I can tell, this indicates that the level of information at the input layer is insufficient to reliably generate a highly accurate model.
