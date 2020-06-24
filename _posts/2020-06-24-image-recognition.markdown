@@ -213,4 +213,4 @@ Despite adjusting these parameters quite substantially, I was unable to produce 
 <img src="{{site.url}}/{{site.baseurl}}/assets/ImageRec/Fashion3Demo.png">
 {: refdef}
 
-As an example of the difficulties faced when working with the Fashion dataset the image above was incorrectly classified as a Shirt, when its label indicates that it is in fact a Pullover.
+As an example of the difficulties faced when working with the Fashion dataset the image above was incorrectly classified as a Shirt, when its label indicates that it is in fact a Pullover. I think many humans would label this as a Coat or a Shirt, and so it is easy to see how the inaccuracies in the model's predictions arise.
