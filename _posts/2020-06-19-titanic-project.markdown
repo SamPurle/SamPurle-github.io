@@ -399,7 +399,7 @@ def Optimise(xTrain, yTrain, n_iter, FOLDS):
 {% endhighlight %}
 
 - **n_iter:** Specifies the number of times this process is iterated through, which is equal to the number of different hyper-parameter combinations that are tested
-- **n_jobs:** Specifies the number of CPU threads allocated to this processed
+- **n_jobs:** Specifies the number of CPU threads allocated to this process
 - **cv:** Specifies the number of folds to be used for cross-validation
 - **random_state:** Seeds the random number generator for parameter selection
 
