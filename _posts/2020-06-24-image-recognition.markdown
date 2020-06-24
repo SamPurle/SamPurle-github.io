@@ -196,7 +196,7 @@ These predictions achieved an accuracy of 98.5% on unseen test data. A sample fr
 An MNIST Fashion dataset is also available, which contains 60,000 labelled low-resolution images of clothing items from the retailer Zalando's catalogue. This is paired with 10,000 labelled test images. Because these images are in the same format as Digit dataset, it is trivial to fit the model to this new data.
 
 {:refdef: style="text-align: center;"}
-<img src="{{site.url}}/{{site.baseurl}}/assets/ImageRec/Index50Demo.png">
+<img src="{{site.url}}/{{site.baseurl}}/assets/ImageRec/Fashion50Demo.png">
 {: refdef}
 
 The key different between these images and hand-written digits is that Arabic Numerals are specifically designed to be easily distinguishable. The images of clothing, however, are sufficiently low-resolution that they are difficult to distinguish even for humans. Nonetheless, without any adaptation the existing model achieved an accuracy of 90.6% on unseen test data.
