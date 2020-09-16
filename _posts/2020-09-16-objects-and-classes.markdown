@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Powerlifting Data Analysis"
+title:  "Objects and Classes"
 date:   2020-09-16 08:45:55 +0100
 categories: project upload
 ---
