@@ -175,3 +175,60 @@ print(my_reader.get('occupation', 0))
 print(my_reader.get('gender', 1))
 
 {% endhighlight %}
+
+
+### Self-playing Hangman
+
+As a challenge to myself, I decided to see if I could build a version of Hangman that intelligently plays itself. I did this by creating a HangmanSolver class:
+
+{% highlight python %}
+
+class HangmanSolver:
+    def __init__(self, blank_list):
+        self.length = len(blank_list)
+        self.unguessed = list(string.ascii_uppercase)
+        print('Initiated solver')
+        words = open("dictionary.txt","r")
+        wordslist = [line.split('\n') for line in words.readlines()]   
+        words.close()  
+        self.posswords = []
+        for item in wordslist:
+            if len(item[0]) == self.length:
+                self.posswords.append(item[0])  
+
+{% endhighlight %}
+
+This class is initialised with a blank_list from the Hangman class, and then determines the length of the word to be guessed. A list of all letters is created, which can be gradually removed from as guessing occurs and letters should not be re-guessed. A list of all words in the dictionary file that match the length of the target word is then created under self.posswords.
+
+{% highlight python %}
+
+def guess_select(self, blank_list):        
+    notposs = set()           
+    for word in self.posswords:            
+        for index in range(self.length):                
+            if (word[index] != blank_list[index]) and (blank_list[index] != '_'):                    
+                notposs.add(word)                   
+    for word in self.posswords:
+        if word in notposs:
+            self.posswords.remove(word)               
+    count_dict = {}      
+    for let in self.unguessed:
+        let_count = 0            
+        for word in self.posswords:
+            for index in range(self.length):
+                if (word[index] == let) and (blank_list[index] == '_'):
+                    let_count += 1
+        count_dict[let] = let_count          
+    guess_let = max(count_dict, key = count_dict.get)
+    self.unguessed.remove(guess_let)                  
+    return guess_let
+
+{% endhighlight %}
+
+Instead of taking a user input method, I modified the Hangman class to call the guess_select() method from the HangmanSolver class, which takes in the list of blanks populated with correctly guessed letters from the Hangman class.
+
+An empty set of dictionary words that do not match based on correctly guessed letters is then populated via a "for" loop. These are then programmatically removed from self.posswords. Note that I chose to add to a set and then subsequently remove from self.posswords, as I did not want to remove directly from self.posswords while iterating over it.  
+
+Next, an empty dictionary is created ready to store the counts of each letter in potentially matching words is created. This is populated with letters that have not been guessed yet. For each letter, the number of times that letter occurs in an index corresponding to a blank space in the target word is counted. Note that this counts the number of **letter** occurrences, not the number of word occurences. This was deliberate, as more information is likely to be gained by correctly guessing a letter that appears many times in the word.
+
+After all potential letters have been iterated over, the maximum count from the dictionary is found. The key corresponding to this maximum value is returned as the output argument, and passed to the Hangman.guess() method in place of a user input. 
