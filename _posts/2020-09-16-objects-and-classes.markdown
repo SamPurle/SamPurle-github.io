@@ -234,5 +234,5 @@ Next, an empty dictionary is created ready to store the counts of each letter in
 After all potential letters have been iterated over, the maximum count from the dictionary is found. The key corresponding to this maximum value is returned as the output argument, and passed to the Hangman.guess() method in place of a user input.
 
 {:refdef: style="text-align: center;"}
-<img src="{{site.url}}/{{site.baseurl}}/"assets\Classes\ezgif-6-816c4ae9b03c.gif"">
+<img src="{{site.url}}/{{site.baseurl}}/assets/Classes/ezgif-6-816c4ae9b03c.gif>
 {: refdef}
