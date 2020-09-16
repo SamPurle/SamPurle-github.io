@@ -231,4 +231,8 @@ An empty set of dictionary words that do not match based on correctly guessed le
 
 Next, an empty dictionary is created ready to store the counts of each letter in potentially matching words is created. This is populated with letters that have not been guessed yet. For each letter, the number of times that letter occurs in an index corresponding to a blank space in the target word is counted. Note that this counts the number of **letter** occurrences, not the number of word occurences. This was deliberate, as more information is likely to be gained by correctly guessing a letter that appears many times in the word.
 
-After all potential letters have been iterated over, the maximum count from the dictionary is found. The key corresponding to this maximum value is returned as the output argument, and passed to the Hangman.guess() method in place of a user input. 
+After all potential letters have been iterated over, the maximum count from the dictionary is found. The key corresponding to this maximum value is returned as the output argument, and passed to the Hangman.guess() method in place of a user input.
+
+{:refdef: style="text-align: center;"}
+<img src="{{site.url}}/{{site.baseurl}}/"assets\Classes\ezgif-6-816c4ae9b03c.gif"">
+{: refdef}
